@@ -1,2 +1,2 @@
-﻿$cred = Get-Credential amr\jpjames
-Install-BoxstarterPackage -PackageName .\PackageInstallGist.ps1 -Credential $cred
+﻿$cred = Get-Credential jpjames
+Install-BoxstarterPackage -PackageName CodeCampGist.ps1 -Credential $cred

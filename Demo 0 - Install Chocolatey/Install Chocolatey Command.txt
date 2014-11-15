@@ -1,0 +1,11 @@
+	Install-ChocolateyPinnedTaskBarItem "$env:windir\system32\mstsc.exe"
+	Install-ChocolateyPinnedTaskBarItem "${env:SystemRoot}\system32\WindowsPowerShell\v1.0\powershell.exe"	
+	#Install-ChocolateyVsixPackage LayoutsORama 'http://visualstudiogallery.msdn.microsoft.com/35966ad9-430f-4ad7-9186-4394b784e36c/file/53026/14/LayoutsORama.vsix'
+
+
+** REMOVE DEFAULT SOURCE SINCE WE ARE OFFLINE **
+choco sources disable -name chocolatey
+
+
+** ADD LOCAL REPO TO SOURCES **
+choco sources add -name local -source "C:\projects\Chocolatey Talk\Chocolatey Offline Install\packages"

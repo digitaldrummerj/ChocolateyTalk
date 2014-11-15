@@ -1,12 +1,58 @@
 
+***** INSTALL BoxStarter ******
+cinst BoxStarter 
 
-WebPi Notes:
+**** INSTALL FROM GIST USING BoxStarter *****
+powershell -File "C:\projects\Chocolatey Talk\Demo 1 - Install Using BoxStarter> .\InstallUsingBoxStarter.ps1"
 
-Web Pi Command Line Requires .NET 3.5
-1. Mount the Win 8 ISO
-2. start command prompt as admin
-3. Dism /online /enable-feature /featurename:NetFx3 /All /Source:d:\sources\sxs /LimitAccess
+****** Get List of Windows Features that are available to install .  Send to file cause it is too big for cmd screen.******
+clist -source windowsfeatures > WinFeatures.txt
+
+**** INSTALL ZOOMIT *****
+cinst zoomit 
+
+********************************
+**** CREATE PACKAGE NOTES ******
+********************************
+
+** INSTALL warmup ***
+cinst warmup
+
+** Unzip warmup chocolatey templates  **
+unzip to c:\programdata\chocolatey
+
+** Go into template dir and warmup **
+cd %ChocolateyInstall%\chocolateytemplates
+warmup addTemplateFolder chocolatey "%CD%\chocolatey"
+
+warmup addTemplateFolder chocolatey3 "%cd%\chocolatey3"
+warmup addTemplateFolder chocolateyauto "%cd%\chocolateyauto"
+warmup addTemplateFolder chocolateyauto3 "%cd%\chocolateyauto3"
 
 
+** Set warmup replacements **
+warmup addTextReplacement __CHOCO_PKG_OWNER_NAME__  "Justin James"
+warmup addTextReplacement __CHOCO_PKG_MAINTAINER_NAME__ "Justin James"
+choco install ussf 
+** Create DemoPackage using warmup
+warmup chocolatey DemoPackage
 
-clist -source webpi requires elevated command prompt.  Run from boxstarter
+cd DemoPackage
+
+
+Edit the PackageName.nuspec configuration file.
+Edit the ./tools/chocolateyInstall.ps1 install script.
+	# ADD THESE LINE TO SCRIPT #
+	Install-ChocolateyPinnedTaskBarItem "$env:windir\system32\mstsc.exe"
+	Install-ChocolateyPinnedTaskBarItem "${env:SystemRoot}\system32\WindowsPowerShell\v1.0\powershell.exe"	
+	#Install-ChocolateyVsixPackage LayoutsORama 'http://visualstudiogallery.msdn.microsoft.com/35966ad9-430f-4ad7-9186-4394b784e36c/file/53026/14/LayoutsORama.vsix'
+	
+Note: You must save your files with UTF-8 character encoding without BOM. 
+
+** Package into nupkg **
+cpack
+
+** Test install **
+cinst PackageName -source '%cd%'
+
+

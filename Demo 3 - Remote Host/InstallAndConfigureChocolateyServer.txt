@@ -1,0 +1,13 @@
+cinst chocolatey.server 
+
+cinst IIS-WebServer -source windowsfeatures
+cinst IIS-WebServerRole -source windowsfeatures
+cinst IIS-ISAPIFilter -source windowsfeatures
+cinst IIS-ISAPIExtensions -source windowsfeatures
+cinst IIS-NetFxExtensibility -source windowsfeatures
+cinst IIS-ASPNET -source windowsfeatures
+cinst IIS-WindowsAuthentication -source windowsfeatures
+cinst WCF-Http-Activation -source windowsfeatures
+cinst IIS-ASPNET45 -source windowsfeatures
+
+Install-ChocolateyPinnedTaskBarItem "$env:windir\system32\inetsrv\inetmgr.exe"
